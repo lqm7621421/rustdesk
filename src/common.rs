@@ -1942,6 +1942,7 @@ async fn secure_tcp_impl(conn: &mut Stream, key: &str, log_on_success: bool) -> 
     // This doesn't affect the end-to-end encryption between clients,
     // it only avoids redundant encryption between client and server.
     return Ok(());
+     /*
     if use_ws() {
         return Ok(());
     }
@@ -1981,6 +1982,7 @@ async fn secure_tcp_impl(conn: &mut Stream, key: &str, log_on_success: bool) -> 
         _ => {}
     }
     Ok(())
+    */
 }
 
 pub async fn secure_tcp(conn: &mut Stream, key: &str) -> ResultType<()> {
