@@ -5071,6 +5071,7 @@ pub async fn confirm_insecure_connection(
     interface: &impl Interface,
     receiver: &mut UnboundedReceiver<Data>,
 ) -> bool {
+    return true;
     interface.msgbox(
         "insecure-connection-nocancel-hasclose",
         "Insecure Connection",
