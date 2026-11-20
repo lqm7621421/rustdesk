@@ -2299,6 +2299,9 @@ pub fn check_process(arg: &str, mut same_uid: bool) -> bool {
 }
 
 async fn secure_tcp_impl(conn: &mut Stream, key: &str, log_on_success: bool) -> ResultType<()> {
+    // [keyless server build] Our self-hosted server has no key exchange;
+    // skip it so third-party API login does not hit secure_tcp timeout.
+    return Ok(());
     // Skip additional encryption when using WebSocket connections (wss://)
     // as WebSocket Secure (wss://) already provides transport layer encryption.
     // This doesn't affect the end-to-end encryption between clients,
@@ -2395,6 +2398,8 @@ async fn secure_tcp_silent(conn: &mut Stream, key: &str) -> ResultType<()> {
 /// `secure_tcp` keeps tolerating such a server, which the paths from before the exchange depend
 /// on. WebSocket is treated as `secure_tcp` treats it, as a transport that is encrypted already.
 pub async fn secure_tcp_required(conn: &mut Stream, key: &str) -> ResultType<()> {
+    // [keyless server build] No key exchange on our server; skip handshake.
+    return Ok(());
     if use_ws() {
         return Ok(());
     }
